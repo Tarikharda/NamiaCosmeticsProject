@@ -3,9 +3,12 @@ package com.example.namiacosmeticsproject.Common;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Pair;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,7 +43,10 @@ public class splashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext() , DashboardActivity.class));
+
+                Intent intent = new Intent(getApplicationContext() , DashboardActivity.class);
+                startActivity(intent);
+
                 finish();
             }
         } , DURATION);

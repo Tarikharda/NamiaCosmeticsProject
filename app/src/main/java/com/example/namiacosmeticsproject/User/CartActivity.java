@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.example.namiacosmeticsproject.CartAdapter.CartProductAdapter;
 import com.example.namiacosmeticsproject.CartAdapter.CartProductModel;
-import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
-import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
 
 import java.util.ArrayList;
@@ -41,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
 
         setSupportActionBar(cartToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_black);
         getSupportActionBar().setTitle("");
 
 

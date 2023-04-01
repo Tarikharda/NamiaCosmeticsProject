@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="10dp"
     app:cardCornerRadius="10dp"
@@ -51,77 +51,88 @@
                 android:textSize="16sp"
                 />
 
-            <TextView
-                android:id="@+id/cart_item_price"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$ 40.00"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                >
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/cart_plus_img"-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/plus"-->
-<!--                    android:layout_marginHorizontal="8dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:background="@drawable/plus_bg"-->
-<!--                    />-->
-
-                <ImageView
-                    android:id="@+id/cart_plus_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/plus_icon"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center"
-                    />
+                android:paddingVertical="8dp">
 
                 <TextView
-                    android:id="@+id/cart_num_product_txt"
+                    android:id="@+id/cart_item_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textSize="16sp"
+                    android:text="$ 40.00"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:layout_marginHorizontal="8dp"
-                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
                     />
 
-                <ImageView
-                    android:id="@+id/cart_minus_img"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/minus_icon"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="center"
-                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    >
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/cart_minus_img"-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:src="@drawable/minus"-->
-<!--                    android:layout_marginHorizontal="8dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:background="@drawable/minus_bg"-->
-<!--                    />-->
-            </LinearLayout>
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/cart_plus_img"-->
+                    <!--                    android:layout_width="20dp"-->
+                    <!--                    android:layout_height="20dp"-->
+                    <!--                    android:scaleType="fitCenter"-->
+                    <!--                    android:src="@drawable/plus"-->
+                    <!--                    android:layout_marginHorizontal="8dp"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:background="@drawable/plus_bg"-->
+                    <!--                    />-->
+
+                    <ImageView
+                        android:id="@+id/cart_plus_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/plus_icon"
+                        android:layout_marginEnd="8dp"
+                        android:layout_gravity="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/cart_num_product_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_gravity="center"
+                        />
+
+                    <ImageView
+                        android:id="@+id/cart_minus_img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/minus_icon"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center"
+                        />
+
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/cart_minus_img"-->
+                    <!--                    android:layout_width="20dp"-->
+                    <!--                    android:layout_height="20dp"-->
+                    <!--                    android:scaleType="fitCenter"-->
+                    <!--                    android:src="@drawable/minus"-->
+                    <!--                    android:layout_marginHorizontal="8dp"-->
+                    <!--                    android:layout_gravity="center"-->
+                    <!--                    android:background="@drawable/minus_bg"-->
+                    <!--                    />-->
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
@@ -130,9 +141,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/bin"
-            android:layout_centerVertical="true"
+            android:src="@drawable/bin2"
             android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
             android:padding="10dp"/>
 
 

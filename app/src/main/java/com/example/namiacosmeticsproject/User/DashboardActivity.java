@@ -14,11 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.namiacosmeticsproject.Admin.LoginActivity;
+import com.example.namiacosmeticsproject.Admin.SignUpActivity;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
@@ -26,22 +29,23 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final float END_SCALE = 0.7f;
 
     Toolbar toolbar;
-    RecyclerView topSellsRecycler , NewProductsRecycler;
-    recyclerCardAdapter cardAdapter , cardAdapterNewProducts;
-    ArrayList<recyclerCardModel> topSellsProductsList, newProductsList , categoriesList , packsList;
+    RecyclerView topSellsRecycler, NewProductsRecycler;
+    recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
+    ArrayList<recyclerCardModel> topSellsProductsList, newProductsList, categoriesList, packsList;
 
     ImageView menuIcon;
+//    TextView loginTxt;
 
     // drawer menu
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    LinearLayout body , cartIcon;
+    LinearLayout body, cartIcon;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -64,7 +68,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerMenu();
 
 
-
     }
 
     private void imageSlider() {
@@ -72,15 +75,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         ArrayList<SlideModel> imageList = new ArrayList<>();
 
-        imageList.add(new SlideModel(R.drawable.slider_img1 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img2 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img3 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img4 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img5 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img6 , ScaleTypes.FIT));
-        imageList.add(new SlideModel(R.drawable.slider_img7 , ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img1, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img2, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img3, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img4, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img5, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img6, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.slider_img7, ScaleTypes.FIT));
 
-        imgSlider.setImageList(imageList , ScaleTypes.FIT);
+        imgSlider.setImageList(imageList, ScaleTypes.FIT);
     }
 
     @SuppressLint("UseSupportActionBar")
@@ -103,6 +106,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         cartIcon = findViewById(R.id.cart_icon);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+
+//        loginTxt = findViewById(R.id.txt_menu);
     }
 
 //    navigation menu functions
@@ -118,12 +123,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setCheckedItem(R.id.nav_home);
 
         menuIcon.setOnClickListener(v -> {
-            if (drawerLayout.isDrawerVisible(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+            if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                drawerLayout.closeDrawer(GravityCompat.START);
             else drawerLayout.openDrawer(GravityCompat.START);
         });
 
         cartIcon.setOnClickListener(v -> {
-            Intent intent =  new Intent(DashboardActivity.this , CartActivity.class);
+            Intent intent = new Intent(DashboardActivity.this, CartActivity.class);
             startActivity(intent);
         });
 
@@ -163,12 +169,26 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public void onBackPressed() {
 //        this for if we click in the back button when the menu is open than will be close
 
-        if (drawerLayout.isDrawerVisible(GravityCompat.START)) drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerVisible(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
         else super.onBackPressed();
     }
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // that means that we have some item to be clicked
+        switch (item.getItemId()) {
+            case R.id.profile_login:
+                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.profile_sign_up:
+                Intent intent1 = new Intent(DashboardActivity.this, SignUpActivity.class);
+                startActivity(intent1);
+                break;
+        }
         return true;
     }
 
@@ -180,15 +200,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         topSellsRecycler.setHasFixedSize(true);
 
         // to set the orientation of it to linear layout horizontal
-        topSellsRecycler.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
+        topSellsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         topSellsProductsList = new ArrayList<>();
 
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
 
         // for the top sells products recycler view
         cardAdapter = new recyclerCardAdapter(topSellsProductsList);
@@ -199,15 +219,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private void newProductsRecycler() {
         NewProductsRecycler.setHasFixedSize(true);
 
-        NewProductsRecycler.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
+        NewProductsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         newProductsList = new ArrayList<>();
 
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s , "argan oil bio" , "$ 100.00" , "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
 
         // for the new products recycler view
 
