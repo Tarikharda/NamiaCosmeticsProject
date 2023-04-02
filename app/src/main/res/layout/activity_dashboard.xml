@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="-3dp"
-                        android:src="@drawable/ic_cart" />
+                        android:src="@drawable/ic_cart_yellow" />
 
                     <TextView
                         android:id="@+id/txt_cart"

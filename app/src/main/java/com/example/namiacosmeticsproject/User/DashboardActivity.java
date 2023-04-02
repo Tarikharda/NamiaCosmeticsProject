@@ -204,14 +204,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         topSellsProductsList = new ArrayList<>();
 
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
+        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
 
         // for the top sells products recycler view
-        cardAdapter = new recyclerCardAdapter(topSellsProductsList);
+        cardAdapter = new recyclerCardAdapter(DashboardActivity.this , topSellsProductsList);
         topSellsRecycler.setAdapter(cardAdapter);
 
     }
@@ -223,15 +223,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         newProductsList = new ArrayList<>();
 
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 100.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 160.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 170.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 180.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 190.00", "Body"));
+        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 200.00", "Body"));
 
         // for the new products recycler view
 
-        cardAdapterNewProducts = new recyclerCardAdapter(newProductsList);
+        cardAdapterNewProducts = new recyclerCardAdapter(DashboardActivity.this , newProductsList);
 
         NewProductsRecycler.setAdapter(cardAdapterNewProducts);
     }
