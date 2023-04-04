@@ -38,8 +38,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
     ArrayList<recyclerCardModel> topSellsProductsList, newProductsList, categoriesList, packsList;
 
-    ImageView menuIcon;
-//    TextView loginTxt;
+    ImageView menuIcon , headerMenuImg;
+    TextView headerMenuTitle;
 
     // drawer menu
 
@@ -90,7 +90,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private void initViews() {
         // toolbar
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_signup);
 
         setActionBar(toolbar);
 
@@ -107,7 +107,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
 
-//        loginTxt = findViewById(R.id.txt_menu);
+        // handle the clicks on the header menu
+
+        View headerView = navigationView.getHeaderView(0);
+        headerMenuImg =  headerView.findViewById(R.id.img_menu);
+        headerMenuTitle =  headerView.findViewById(R.id.txt_menu);
+
+
     }
 
 //    navigation menu functions
@@ -134,6 +140,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         });
 
         animateMenu();
+
+        // handle the clicks on the header menu
+
+        headerMenuTitle.setOnClickListener(v -> {
+            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+        });
+
+        headerMenuImg.setOnClickListener(v -> {
+            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+        });
+
     }
 
     private void animateMenu() {
@@ -178,22 +195,21 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // that means that we have some item to be clicked
+
         switch (item.getItemId()) {
             case R.id.profile_login:
-                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
                 break;
 
             case R.id.profile_sign_up:
-                Intent intent1 = new Intent(DashboardActivity.this, SignUpActivity.class);
-                startActivity(intent1);
+                startActivity(new Intent(DashboardActivity.this, SignUpActivity.class));
                 break;
         }
         return true;
     }
 
 
-//    recycler views functions
+    //    recycler views functions
 
     private void topSellsRecycler() {
         // to load just the card that are viewed by the user not all

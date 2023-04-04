@@ -39,29 +39,29 @@
 
     </group>
 
-    <item android:title="Profile" >
-        <menu>
-            <group android:id="@+id/profile"
-                android:checkableBehavior="single"
-                >
+<!--    <item android:title="Profile" >-->
+<!--        <menu>-->
+<!--            <group android:id="@+id/profile"-->
+<!--                android:checkableBehavior="single"-->
+<!--                >-->
 
-                <item
-                    android:id="@+id/profile_sign_up"
-                    android:title="Sign Up"
-                    android:icon="@drawable/company_logo"/>
+<!--                <item-->
+<!--                    android:id="@+id/profile_sign_up"-->
+<!--                    android:title="Sign Up"-->
+<!--                    android:icon="@drawable/company_logo"/>-->
 
-                <item
-                    android:id="@+id/profile_login"
-                    android:title="Login"
-                    android:icon="@drawable/company_logo"/>
+<!--                <item-->
+<!--                    android:id="@+id/profile_login"-->
+<!--                    android:title="Login"-->
+<!--                    android:icon="@drawable/company_logo"/>-->
 
-                <item
-                    android:id="@+id/profile_logout"
-                    android:title="Logout"
-                    android:icon="@drawable/company_logo"/>
-            </group>
+<!--                <item-->
+<!--                    android:id="@+id/profile_logout"-->
+<!--                    android:title="Logout"-->
+<!--                    android:icon="@drawable/company_logo"/>-->
+<!--            </group>-->
 
-        </menu>
-    </item>
+<!--        </menu>-->
+<!--    </item>-->
 
 </menu>
