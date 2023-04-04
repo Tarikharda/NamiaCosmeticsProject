@@ -128,6 +128,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
+        // to let the icons inside the drawer layout but it disabled the style of the click on the items
+//        navigationView.setItemIconTintList(null);
+
         menuIcon.setOnClickListener(v -> {
             if (drawerLayout.isDrawerVisible(GravityCompat.START))
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -197,13 +200,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         // that means that we have some item to be clicked
 
         switch (item.getItemId()) {
-            case R.id.profile_login:
-                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+            case R.id.nav_home:
+                startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
                 break;
 
-            case R.id.profile_sign_up:
-                startActivity(new Intent(DashboardActivity.this, SignUpActivity.class));
-                break;
         }
         return true;
     }

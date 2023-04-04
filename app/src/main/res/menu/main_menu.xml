@@ -5,37 +5,37 @@
         <item
             android:id="@+id/nav_home"
             android:title="Home"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_home"/>
 
         <item
             android:id="@+id/nav_all_products"
             android:title="All Products"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_all_products"/>
 
         <item
             android:id="@+id/nav_best_sellers"
             android:title="Best Sellers"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_best_sellers"/>
 
         <item
             android:id="@+id/nav_shipping_infos"
             android:title="Shipping Information"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_shipping"/>
 
         <item
             android:id="@+id/nav_wishlist"
             android:title="Wishlist"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_wishlist"/>
 
         <item
             android:id="@+id/nav_contact"
             android:title="Contact us"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_contact"/>
 
         <item
             android:id="@+id/nav_about"
             android:title="About us"
-            android:icon="@drawable/company_logo"/>
+            android:icon="@drawable/ic_about"/>
 
     </group>
 

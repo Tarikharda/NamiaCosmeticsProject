@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/bin2"
+            android:src="@drawable/bin"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             android:padding="10dp"/>
