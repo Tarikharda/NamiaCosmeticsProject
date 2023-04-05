@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -22,6 +25,9 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
 import com.example.namiacosmeticsproject.Admin.SignUpActivity;
+import com.example.namiacosmeticsproject.Fragments.AllProductsFragment;
+import com.example.namiacosmeticsproject.Fragments.BestSellersFragment;
+import com.example.namiacosmeticsproject.Fragments.WishlistFragment;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
@@ -36,10 +42,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     Toolbar toolbar;
     RecyclerView topSellsRecycler, NewProductsRecycler;
     recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
-    ArrayList<recyclerCardModel> topSellsProductsList, newProductsList, categoriesList, packsList;
+    ArrayList<recyclerCardModel> topSellsProductsList, newProductsList;
 
     ImageView menuIcon , headerMenuImg;
-    TextView headerMenuTitle;
+    TextView headerMenuTitle , navTitle;
+
+    FragmentTransaction fragmentTransaction;
 
     // drawer menu
 
@@ -113,6 +121,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         headerMenuImg =  headerView.findViewById(R.id.img_menu);
         headerMenuTitle =  headerView.findViewById(R.id.txt_menu);
 
+        navTitle = findViewById(R.id.nav_title);
 
     }
 
@@ -188,10 +197,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
 //        this for if we click in the back button when the menu is open than will be close
-
         if (drawerLayout.isDrawerVisible(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else super.onBackPressed();
+    }
+
+
+
+    public void fragmentCreator(Fragment fragment) {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container , fragment);
+        fragmentTransaction.commit();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -203,6 +219,29 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_home:
                 startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
                 break;
+
+            case R.id.nav_all_products:
+                fragmentCreator(new AllProductsFragment());
+                break;
+
+            case R.id.nav_best_sellers:
+                fragmentCreator(new BestSellersFragment());
+                break;
+
+            case R.id.nav_wishlist:
+                fragmentCreator(new WishlistFragment());
+                break;
+
+            case R.id.nav_about:
+                Toast.makeText(this, "about us", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_contact:
+                Toast.makeText(this, "contact us", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_exit:
+                finish();
 
         }
         return true;

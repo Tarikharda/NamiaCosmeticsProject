@@ -6,16 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.namiacosmeticsproject.R;
 
 public class FragmentsContainer extends AppCompatActivity {
 
+    Toolbar toolbar;
+
     FragmentTransaction fragmentTransaction;
     TextView navTitle;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +26,7 @@ public class FragmentsContainer extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
+
 
         navTitle = findViewById(R.id.nav_title);
 
@@ -40,10 +40,18 @@ public class FragmentsContainer extends AppCompatActivity {
 
     }
 
-    public void fragmentCreator(String fragmentTitle , Fragment fragment) {
+//    public void fragmentCreator(String fragmentTitle, Fragment fragment) {
+//        navTitle.setText(fragmentTitle);
+//        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_container , fragment);
+//        fragmentTransaction.commit();
+//    }
+
+    public FragmentsContainer(String fragmentTitle, Fragment fragment) {
         navTitle.setText(fragmentTitle);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container , fragment);
+        fragmentTransaction.replace(R.id.fragment_container , fragment);
         fragmentTransaction.commit();
     }
+
 }
