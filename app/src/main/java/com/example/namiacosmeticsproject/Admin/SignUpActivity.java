@@ -48,4 +48,28 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    private boolean validatePassword() {
+//        String value = password.getEditText().getText().toString().trim();
+//        String checkPassword =  "^" +
+//                "(?=.*[a-zA-Z])" +           // for let the password contains any letter
+//                "(?=.*[0-9])" +              // for let the password contains one digits
+//                "(?=.*[@#$%^&*+=])" +        // for let the password contains at least one special character
+//                "(?=\\S+$)" +                // for let the password contains no white spaces
+//                ".{6,}" +                    // for let the password contains at least 6 character
+//                "$";
+//
+//        if (value.isEmpty()) {
+//            email.setError("Field can not be empty");
+//            return false;
+//        } else if (!value.matches(checkPassword)){
+//            email.setError("Password should contains at least 6 characters with numbers and symbols!");
+//            return false;
+//        }else {
+//            email.setError(null);
+//            email.setErrorEnabled(false);
+//            return true;
+//        }
+//    }
+
 }

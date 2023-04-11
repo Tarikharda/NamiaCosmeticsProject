@@ -3,13 +3,18 @@ package com.example.namiacosmeticsproject.User;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.namiacosmeticsproject.Admin.PaymentActivity;
 import com.example.namiacosmeticsproject.CartAdapter.CartProductAdapter;
 import com.example.namiacosmeticsproject.CartAdapter.CartProductModel;
 import com.example.namiacosmeticsproject.R;
@@ -19,6 +24,7 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
 
     Toolbar cartToolbar;
+    TextView checkoutBtn;
 
     RecyclerView recyclerCart;
     CartProductAdapter cartProductAdapter;
@@ -33,18 +39,20 @@ public class CartActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_cart);
 
-        cartToolbar = findViewById(R.id.cart_toolbar);
+        initViews();
 
         setSupportActionBar(cartToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_black);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
 
 
-        initViews();
-
         cartRecycler();
 
+        checkoutBtn.setOnClickListener(v -> {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(CartActivity.this , PaymentActivity.class));
+        });
     }
 
     private void cartRecycler() {
@@ -66,7 +74,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        cartToolbar = findViewById(R.id.cart_toolbar);
         recyclerCart = findViewById(R.id.recycler_cart);
+        checkoutBtn = findViewById(R.id.checkout_btn);
     }
 
     @Override

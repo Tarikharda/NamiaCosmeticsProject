@@ -1,4 +1,4 @@
-package com.example.namiacosmeticsproject.Fragments;
+package com.example.namiacosmeticsproject.Fragments.MenuFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class AllProductsFragment extends Fragment {
     View view;
     TextView navTitle;
     Toolbar toolbar;
+
+    ProgressBar progressBar;
+
     RecyclerView recyclerAllProducts;
     recyclerCardAdapter allProductsFragmentAdapter;
     ArrayList<recyclerCardModel> allProductsFragmentList;
@@ -58,6 +62,17 @@ public class AllProductsFragment extends Fragment {
         return view;
     }
 
+    private void initViews() {
+        toolbar = view.findViewById(R.id.toolbar_all_products);
+
+        progressBar = view.findViewById(R.id.all_products_progressbar);
+
+        navTitle = view.findViewById(R.id.nav_title);
+        navTitle.setText("All Products");
+
+        recyclerAllProducts = view.findViewById(R.id.all_products_recycler);
+    }
+
     private void allProductsFragment() {
         recyclerAllProducts.setHasFixedSize(true);
         recyclerAllProducts.setLayoutManager(new GridLayoutManager(getContext() , 2));
@@ -79,15 +94,6 @@ public class AllProductsFragment extends Fragment {
         allProductsFragmentAdapter = new recyclerCardAdapter(getContext() , allProductsFragmentList);
         recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
 
-    }
-
-    private void initViews() {
-        toolbar = view.findViewById(R.id.toolbar_all_products);
-
-        navTitle = view.findViewById(R.id.nav_title);
-        navTitle.setText("All Products");
-
-        recyclerAllProducts = view.findViewById(R.id.all_products_recycler);
     }
 
     @Override

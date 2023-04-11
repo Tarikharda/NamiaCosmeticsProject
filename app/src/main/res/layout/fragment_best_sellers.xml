@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.BestSellersFragment">
+    android:background="@color/white"
+    tools:context=".Fragments.MenuFragments.BestSellersFragment">
 
     <ProgressBar
         android:id="@+id/best_sellers_progressbar"
@@ -24,13 +25,6 @@
             android:id="@+id/toolbar_layout"
             >
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/back_btn"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:src="@drawable/ic_back"-->
-            <!--                android:padding="15dp"/>-->
-
             <TextView
                 android:id="@+id/nav_title"
                 android:layout_width="wrap_content"
@@ -46,10 +40,11 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@id/toolbar_fragments"-->
-<!--        android:id="@+id/best_sellers_recycler"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_best_sellers"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/best_sellers_recycler"/>
 
 </RelativeLayout>

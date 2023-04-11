@@ -45,4 +45,21 @@ dependencies {
 
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
 
+    // for the country picker
+
+    implementation 'com.hbb20:ccp:2.6.1'
+
+    // OTP PIN view design
+
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+
+    // circle image view
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // pdf reader
+
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
+
 }

@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         txtForget.setOnClickListener(v -> {
             Toast.makeText(this, "I forget my password 😫", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this , ForgetPassword.class));
         });
 
         txtSignUp.setOnClickListener(v -> {

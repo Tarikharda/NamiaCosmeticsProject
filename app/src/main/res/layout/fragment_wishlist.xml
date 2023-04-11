@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.WishlistFragment">
+    android:background="@color/white"
+    tools:context=".Fragments.MenuFragments.WishlistFragment">
 
     <ProgressBar
         android:id="@+id/wishlist_progressbar"
@@ -18,18 +19,12 @@
         android:layout_height="wrap_content"
         android:background="@color/main_color"
         android:layout_alignParentTop="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar_layout"
             >
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/back_btn"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:src="@drawable/ic_back"-->
-            <!--                android:padding="15dp"/>-->
 
             <TextView
                 android:id="@+id/nav_title"
@@ -45,10 +40,68 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@id/toolbar_fragments"-->
-<!--        android:id="@+id/wishlist_recycler"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wishlist_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_wishlist"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/empty_cart_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_wishlist"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/empty_cart_img"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:src="@drawable/wishlist" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Your Wishlist will live here"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Explore variety of products and add your favorite product to Wishlist"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Shop now"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/main_color"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

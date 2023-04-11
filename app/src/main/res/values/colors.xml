@@ -12,6 +12,9 @@
     <color name="main_color">#9b51e0</color>
     <color name="second_color">#FFC109</color>
     <color name="card_bg">#339B51E0</color>
+    <color name="alpha_main_color">#BB78FA</color>
+    <color name="gray">#808080</color>
+    <color name="alpha_gray">#CCCACA</color>
 <!--    <color name="linear_bg">#33FFC109</color>-->
 
 <!--    recommended -->

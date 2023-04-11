@@ -24,10 +24,10 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
-import com.example.namiacosmeticsproject.Admin.SignUpActivity;
-import com.example.namiacosmeticsproject.Fragments.AllProductsFragment;
-import com.example.namiacosmeticsproject.Fragments.BestSellersFragment;
-import com.example.namiacosmeticsproject.Fragments.WishlistFragment;
+import com.example.namiacosmeticsproject.Admin.PaymentActivity;
+import com.example.namiacosmeticsproject.Fragments.MenuFragments.AllProductsFragment;
+import com.example.namiacosmeticsproject.Fragments.MenuFragments.BestSellersFragment;
+import com.example.namiacosmeticsproject.Fragments.MenuFragments.WishlistFragment;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
@@ -208,6 +208,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container , fragment);
         fragmentTransaction.commit();
+
+        if (drawerLayout.isDrawerVisible(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -233,11 +236,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_about:
-                Toast.makeText(this, "about us", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, AboutUsActivity.class));
                 break;
 
             case R.id.nav_contact:
-                Toast.makeText(this, "contact us", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,ContactUsActivity.class));
                 break;
 
             case R.id.nav_exit:

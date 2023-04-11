@@ -18,14 +18,14 @@
             android:icon="@drawable/ic_best_sellers"/>
 
         <item
-            android:id="@+id/nav_shipping_infos"
-            android:title="Shipping Information"
-            android:icon="@drawable/ic_shipping"/>
-
-        <item
             android:id="@+id/nav_wishlist"
             android:title="Wishlist"
             android:icon="@drawable/ic_wishlist"/>
+
+        <item
+            android:id="@+id/nav_shipping_infos"
+            android:title="Shipping Information"
+            android:icon="@drawable/ic_shipping"/>
 
         <item
             android:id="@+id/nav_contact"

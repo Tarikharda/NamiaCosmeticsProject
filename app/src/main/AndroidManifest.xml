@@ -15,7 +15,42 @@
         android:theme="@style/Theme.NamiaCosmeticsProject"
         tools:targetApi="31">
         <activity
-            android:name=".User.FragmentsContainer"
+            android:name=".User.AboutUsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".User.ContactUsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.ProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.ForgetPassword"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.VerifyPhoneNumber"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.PaymentActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,7 +71,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".User.ProductDetails"
+            android:name=".User.ProductDetailsActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

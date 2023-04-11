@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.namiacosmeticsproject.R;
-import com.example.namiacosmeticsproject.User.ProductDetails;
+import com.example.namiacosmeticsproject.User.ProductDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class recyclerCardAdapter extends RecyclerView.Adapter<recyclerCardAdapte
         // the onclick of an item of the recycler view
 
         holder.productCard.setOnClickListener(v -> {
-            Intent intent = new Intent(context , ProductDetails.class);
+            Intent intent = new Intent(context , ProductDetailsActivity.class);
             intent.putExtra("price" , topSellsProductsList.get(holder.getAdapterPosition()).getProductPrice());
             intent.putExtra("position" , holder.getAdapterPosition());
             context.startActivity(intent);

@@ -11,208 +11,270 @@
         android:id="@+id/cart_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-
-<!--        <ImageView-->
-<!--            android:id="@+id/cart_back_ic"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_back"-->
-<!--            android:paddingVertical="8dp"-->
-<!--            android:paddingEnd="8dp"/>-->
-
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Cart"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_gravity="center"/>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/filled_cart_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/cart_toolbar"
-        android:layout_above="@id/cards"
-        android:layout_marginVertical="10dp">
+        android:visibility="visible"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/cards"
+            android:layout_marginVertical="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_cart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
 
 
-    </ScrollView>
+        </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/cards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp">
-
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/white"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginVertical="10dp"
-            >
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Amount"
-                    android:textColor="@color/black"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    />
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Item Total"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_centerVertical="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$ 79.00"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery fee"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_centerVertical="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$ 30.00"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_centerVertical="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$ 109.00"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/main_color"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginVertical="10dp"
-            >
-
-            <com.balysv.materialripple.MaterialRippleLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/materialRippleWhite">
+                app:cardCornerRadius="10dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:textColor="@color/black"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Item Total"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$ 79.00"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery fee"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$ 30.00"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/black"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginVertical="15dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$ 109.00"
+                            android:textStyle="bold"
+                            android:textSize="20dp"
+                            android:textColor="@color/black"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/main_color"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="10dp"
+                >
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/materialRippleWhite">
+
+                    <TextView
+                        android:id="@+id/checkout_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Go to Checkout"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="8dp"
+                        />
+
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/empty_cart_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/cart_toolbar"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/empty_cart_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/empty_cart"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Go to Checkout"
-                android:textColor="@color/white"
-                android:textSize="20sp"
+                android:text="Your Cart is Empty"
+                android:textColor="@color/black"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                />
+                android:textAllCaps="true"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"/>
 
-            </com.balysv.materialripple.MaterialRippleLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="There are no items added in your Cart. Shop more to add products to your cart ."
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Shop now"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/main_color"/>
 
-    </LinearLayout>
-
+    </RelativeLayout>
 
 </RelativeLayout>

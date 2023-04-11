@@ -15,7 +15,7 @@ import com.example.namiacosmeticsproject.R;
 
 import java.util.ArrayList;
 
-public class ProductDetails extends AppCompatActivity {
+public class ProductDetailsActivity extends AppCompatActivity {
 
     TextView detailProductTitle , detailProductCategory , detailProductPrice , detailProductDescription;
     ImageView heartImg;
