@@ -1,12 +1,10 @@
 package com.example.namiacosmeticsproject.Fragments.MenuFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,12 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
-import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
-import com.example.namiacosmeticsproject.User.DashboardActivity;
 
 import java.util.ArrayList;
 
@@ -39,7 +35,7 @@ public class AllProductsFragment extends Fragment {
 
     RecyclerView recyclerAllProducts;
     recyclerCardAdapter allProductsFragmentAdapter;
-    ArrayList<recyclerCardModel> allProductsFragmentList;
+    ArrayList<ProductClass> allProductsFragmentList;
 
 
     @Override
@@ -78,22 +74,8 @@ public class AllProductsFragment extends Fragment {
         recyclerAllProducts.setLayoutManager(new GridLayoutManager(getContext() , 2));
 
         allProductsFragmentList = new ArrayList<>();
-
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
-        allProductsFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
-
-
         allProductsFragmentAdapter = new recyclerCardAdapter(getContext() , allProductsFragmentList);
         recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
-
     }
 
     @Override

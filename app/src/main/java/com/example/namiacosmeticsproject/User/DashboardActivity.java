@@ -24,12 +24,12 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
-import com.example.namiacosmeticsproject.Admin.PaymentActivity;
+import com.example.namiacosmeticsproject.Classes.ProductClass;
+import com.example.namiacosmeticsproject.Data.ProductsService;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.AllProductsFragment;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.BestSellersFragment;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.WishlistFragment;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
-import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -42,10 +42,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     Toolbar toolbar;
     RecyclerView topSellsRecycler, NewProductsRecycler;
     recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
-    ArrayList<recyclerCardModel> topSellsProductsList, newProductsList;
+    ArrayList<ProductClass> topSellsProductsList;
+    ArrayList<ProductClass> newProductsList;
 
-    ImageView menuIcon , headerMenuImg;
-    TextView headerMenuTitle , navTitle;
+    ImageView menuIcon, headerMenuImg;
+    TextView headerMenuTitle, navTitle;
 
     FragmentTransaction fragmentTransaction;
 
@@ -54,6 +55,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout body, cartIcon;
+
+    ProductsService productsService = new ProductsService(DashboardActivity.this);
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -118,8 +121,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         // handle the clicks on the header menu
 
         View headerView = navigationView.getHeaderView(0);
-        headerMenuImg =  headerView.findViewById(R.id.img_menu);
-        headerMenuTitle =  headerView.findViewById(R.id.txt_menu);
+        headerMenuImg = headerView.findViewById(R.id.img_menu);
+        headerMenuTitle = headerView.findViewById(R.id.txt_menu);
 
         navTitle = findViewById(R.id.nav_title);
 
@@ -203,10 +206,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
 
-
     public void fragmentCreator(Fragment fragment) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container , fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
         if (drawerLayout.isDrawerVisible(GravityCompat.START))
@@ -240,7 +242,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_contact:
-                startActivity(new Intent(this,ContactUsActivity.class));
+                startActivity(new Intent(this, ContactUsActivity.class));
                 break;
 
             case R.id.nav_exit:
@@ -261,16 +263,22 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         topSellsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         topSellsProductsList = new ArrayList<>();
+        productsService.getProducts(new ProductsService.ProductsInfo() {
 
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
-        topSellsProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
+            @Override
+            public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
+                topSellsProductsList = productsArrayList;
 
-        // for the top sells products recycler view
-        cardAdapter = new recyclerCardAdapter(DashboardActivity.this , topSellsProductsList);
-        topSellsRecycler.setAdapter(cardAdapter);
+                // for the top sells products recycler view
+                cardAdapter = new recyclerCardAdapter(getApplicationContext(), topSellsProductsList);
+                topSellsRecycler.setAdapter(cardAdapter);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(DashboardActivity.this, "Error Loading Products !!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -280,18 +288,22 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         NewProductsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         newProductsList = new ArrayList<>();
+        productsService.getProducts(new ProductsService.ProductsInfo() {
 
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 160.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 170.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 180.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 190.00", "Body"));
-        newProductsList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 200.00", "Body"));
+            @Override
+            public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
+                newProductsList = productsArrayList;
 
-        // for the new products recycler view
+                // for the top sells products recycler view
+                cardAdapter = new recyclerCardAdapter(getApplicationContext(), newProductsList);
+                topSellsRecycler.setAdapter(cardAdapter);
+            }
 
-        cardAdapterNewProducts = new recyclerCardAdapter(DashboardActivity.this , newProductsList);
-
-        NewProductsRecycler.setAdapter(cardAdapterNewProducts);
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(DashboardActivity.this, "Error Loading Products !!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void categoriesRecycler() {

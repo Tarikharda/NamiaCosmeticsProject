@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
-import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardModel;
 import com.example.namiacosmeticsproject.R;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class BestSellersFragment extends Fragment {
 
     RecyclerView recyclerBestSellers;
     recyclerCardAdapter bestSellersFragmentAdapter;
-    ArrayList<recyclerCardModel> bestSellersFragmentList;
+    ArrayList<ProductClass> bestSellersFragmentList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,17 +76,6 @@ public class BestSellersFragment extends Fragment {
         recyclerBestSellers.setLayoutManager(new GridLayoutManager(getContext() , 2));
 
         bestSellersFragmentList = new ArrayList<>();
-
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 110.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 120.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 130.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 140.00", "Body"));
-        bestSellersFragmentList.add(new recyclerCardModel(R.drawable.argan_oil_s, "argan oil bio", "$ 150.00", "Body"));
 
 
         bestSellersFragmentAdapter = new recyclerCardAdapter(getContext() , bestSellersFragmentList);

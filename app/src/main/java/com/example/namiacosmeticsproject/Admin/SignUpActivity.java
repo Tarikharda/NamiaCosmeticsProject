@@ -8,14 +8,27 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.namiacosmeticsproject.R;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView txtLogin;
+    Button btn_signUp;
+    TextInputEditText signup_full_name,signup_email, signup_password;;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -23,19 +36,58 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        toolbar = findViewById(R.id.toolbar_signup);
+        txtLogin = findViewById(R.id.txt_login);
+        toolbar = findViewById(R.id.toolbar);
+        btn_signUp = findViewById(R.id.btn_signUp);
+        signup_full_name = findViewById(R.id.signup_full_name);
+        signup_email = findViewById(R.id.signup_email);
+        signup_password = findViewById(R.id.signup_password);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
 
-        txtLogin = findViewById(R.id.txt_login);
+        btn_signUp.setOnClickListener(view -> {
+            String fullName = signup_full_name.getText().toString().trim();
+            String email = signup_email.getText().toString().trim();
+            String password = signup_password.getText().toString().trim();
+
+            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please fill all editText!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            String url = "https://volleyhost.000webhostapp.com/postUsers.php";
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("signup_full_name", fullName);
+                    params.put("signup_email", email);
+                    params.put("signup_password", password);
+                    return params;
+                }
+            };
+            // Add request to Volley queue
+            Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
+        });
 
         txtLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(this , LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish();
         });
 
     }
@@ -48,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+}
 //    private boolean validatePassword() {
 //        String value = password.getEditText().getText().toString().trim();
 //        String checkPassword =  "^" +
@@ -71,5 +123,3 @@ public class SignUpActivity extends AppCompatActivity {
 //            return true;
 //        }
 //    }
-
-}
