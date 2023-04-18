@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
+import com.example.namiacosmeticsproject.Admin.AddressChecker;
 import com.example.namiacosmeticsproject.CartAdapter.CartProductAdapter;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
@@ -29,6 +32,7 @@ public class CartActivity extends AppCompatActivity {
     CartProductAdapter cartProductAdapter;
     ArrayList<ProductClass> cartItems;
     ImageView deleteProduct, plusProductCounter, minusProductCounter;
+    MaterialRippleLayout  checkout;
     LocalDataBase db = new LocalDataBase(this);
 
     @SuppressLint({"MissingInflatedId", "UseSupportActionBar", "SetTextI18n"})
@@ -44,6 +48,7 @@ public class CartActivity extends AppCompatActivity {
         deleteProduct = findViewById(R.id.cart_bin);
         plusProductCounter = findViewById(R.id.cart_plus_img);
         minusProductCounter = findViewById(R.id.cart_minus_img);
+        checkout = findViewById(R.id.checkout);
 
         totalPrice = findViewById(R.id.totalPrice);
         totalPrice.setText(db.sumPrices()+"");
@@ -57,6 +62,20 @@ public class CartActivity extends AppCompatActivity {
 
         cartRecycler();
 
+        checkout.setOnClickListener(V->{
+            float price=Float.parseFloat(totalPrice.getText().toString());
+            if(price>0){
+                Intent intent = new Intent(CartActivity.this, AddressChecker.class);
+                startActivity(intent);
+                finish();
+            }else {
+                Toast.makeText(this, "Your Cant Pay For Nothing You Should To Select Product!", Toast.LENGTH_LONG).show();
+            }
+
+        });
+
+
+
     }
 
     private void cartRecycler() {
@@ -66,7 +85,7 @@ public class CartActivity extends AppCompatActivity {
         cartItems = new ArrayList<>();
         LocalDataBase localDataBase = new LocalDataBase(this);
         cartItems = localDataBase.getAllProducts();
-        cartProductAdapter = new CartProductAdapter(this, cartItems);
+        cartProductAdapter = new CartProductAdapter(this, cartItems, totalPrice);
         recyclerCart.setAdapter(cartProductAdapter);
 
 //

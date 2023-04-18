@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
+import com.example.namiacosmeticsproject.Data.LocalDataBase;
 import com.example.namiacosmeticsproject.Data.ProductsService;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.AllProductsFragment;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.BestSellersFragment;
@@ -46,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     ArrayList<ProductClass> newProductsList;
 
     ImageView menuIcon, headerMenuImg;
-    TextView headerMenuTitle, navTitle;
+    TextView headerMenuTitle, navTitle, textcart;
 
     FragmentTransaction fragmentTransaction;
 
@@ -55,8 +57,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout body, cartIcon;
+    FragmentManager fragmentManager;
 
     ProductsService productsService = new ProductsService(DashboardActivity.this);
+    LocalDataBase db = new LocalDataBase(this);
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -68,7 +72,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
 
         initViews();
-
+        textcart.setText(db.allproductscounter()+"");
         imageSlider();
 
         topSellsRecycler();
@@ -125,6 +129,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         headerMenuTitle = headerView.findViewById(R.id.txt_menu);
 
         navTitle = findViewById(R.id.nav_title);
+        textcart = findViewById(R.id.txt_cart);
 
     }
 
@@ -150,8 +155,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         });
 
         cartIcon.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, CartActivity.class);
-            startActivity(intent);
+            int count=Integer.parseInt(textcart.getText().toString());
+            if(count>0){
+                Intent intent = new Intent(DashboardActivity.this, CartActivity.class);
+                startActivity(intent);
+            }else {
+                Toast.makeText(this, "Your Cart Is Empty You Should To Select Product!", Toast.LENGTH_LONG).show();
+            }
+
         });
 
         animateMenu();
@@ -199,6 +210,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
+        fragmentManager = getSupportFragmentManager();
+        Fragment curentf1= fragmentManager.findFragmentById(R.id.fragment_container);
+        if(curentf1!=null){
+            fragmentManager.beginTransaction().remove(curentf1).commit();
+
+            // Remove the fragment from the back stack
+            fragmentManager.popBackStack();
+            return;
+        }
+
 //        this for if we click in the back button when the menu is open than will be close
         if (drawerLayout.isDrawerVisible(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -222,27 +243,47 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         switch (item.getItemId()) {
             case R.id.nav_home:
-                startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
+                fragmentManager = getSupportFragmentManager();
+                Fragment curentf1= fragmentManager.findFragmentById(R.id.fragment_container);
+                if(curentf1!=null){
+                    fragmentManager.beginTransaction().remove(curentf1).commit();
+                    fragmentManager.popBackStack();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }
+                else
+                    drawerLayout.closeDrawer(GravityCompat.START);
+
+//                startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_all_products:
                 fragmentCreator(new AllProductsFragment());
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_best_sellers:
                 fragmentCreator(new BestSellersFragment());
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_wishlist:
                 fragmentCreator(new WishlistFragment());
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+
+            case R.id.nav_shipping_infos:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_about:
-                startActivity(new Intent(this, AboutUsActivity.class));
+//                startActivity(new Intent(this, AboutUsActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_contact:
                 startActivity(new Intent(this, ContactUsActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_exit:

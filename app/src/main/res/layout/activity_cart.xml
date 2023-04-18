@@ -140,6 +140,7 @@
             app:cardElevation="6dp">
 
             <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/checkout"
                 style="@style/materialRippleWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

@@ -15,6 +15,20 @@
         android:theme="@style/Theme.NamiaCosmeticsProject"
         tools:targetApi="31">
         <activity
+            android:name=".AddressChecker"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AdressChecker"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".User.AboutUsActivity"
             android:exported="false">
             <meta-data
@@ -50,7 +64,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Admin.PaymentActivity"
+            android:name=".Admin.AddressChecker"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -63,6 +77,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".User.ProductDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".Admin.LoginActivity"
             android:exported="false">
@@ -96,7 +118,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Paypal Actevitys -->
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentMethodActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
     </application>
 
 </manifest>

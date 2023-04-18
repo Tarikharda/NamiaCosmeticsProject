@@ -132,10 +132,23 @@ public class LocalDataBase extends SQLiteOpenHelper {
     public float sumPrices() {
         SQLiteDatabase db = this.getReadableDatabase();
         float sumOfPrices = 0;
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT SUM( " + PRODUCT_PRICE + " ) as sum  FROM " + PRODUCT_TABLE_NAME, null);
+//        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT SUM( " + PRODUCT_PRICE + " ) as sum  FROM " + PRODUCT_TABLE_NAME, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT " + PRODUCT_PRICE+ " , " + PRODUCT_COUNT + " FROM " + PRODUCT_TABLE_NAME, null);
         if (cursor.moveToFirst()) {
-            sumOfPrices = cursor.getFloat(cursor.getColumnIndex("sum"));
+            do {
+                float productPrice = cursor.getFloat(cursor.getColumnIndex(PRODUCT_PRICE));
+                int productCount = Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_COUNT)));
+                sumOfPrices += productPrice*productCount;
+            }while (cursor.moveToNext());
+//            sumOfPrices = cursor.getFloat(cursor.getColumnIndex("sum"));
         }
         return sumOfPrices;
+    }
+
+    public int allproductscounter() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT DISTINCT *  FROM " + PRODUCT_TABLE_NAME,null);
+        int count = cursor.getCount();
+        return count;
     }
 }

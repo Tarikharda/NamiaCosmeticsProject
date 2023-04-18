@@ -28,11 +28,15 @@ import java.util.Objects;
 
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.CartViewHolder> {
     Context context;
+    TextView totalprice;
     List<ProductClass> cartProductsList;
+    LocalDataBase db;
 
-    public CartProductAdapter(Context context, ArrayList<ProductClass> cartProductsList) {
+    public CartProductAdapter(Context context, ArrayList<ProductClass> cartProductsList, TextView totalprice) {
         this.context = context;
         this.cartProductsList = cartProductsList;
+        db = new LocalDataBase(context);
+        this.totalprice =totalprice;
     }
 
 
@@ -57,7 +61,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
         holder.cartProductBin.setOnClickListener(v -> {
             int id = Integer.parseInt(cartProductsList.get(holder.getAdapterPosition()).getProductId());
-            LocalDataBase db = new LocalDataBase(context);
+//            LocalDataBase db = new LocalDataBase(context);
             db.deleteProduct(id);
             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, CartActivity.class);
@@ -66,20 +70,23 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         });
         holder.cartProductPlus.setOnClickListener(v -> {
             int id = Integer.parseInt(cartProductsList.get(holder.getAdapterPosition()).getProductId());
-            LocalDataBase db = new LocalDataBase(context);
+//            LocalDataBase db = new LocalDataBase(context);
             int count = db.plusProductCounter(id);
             Toast.makeText(context, "Plus", Toast.LENGTH_SHORT).show();
             if (count > 0) {
                 holder.cartProductCounter.setText(count + "");
+                totalprice.setText(db.sumPrices()+"");
+
             }
         });
         holder.cartProductMinus.setOnClickListener(v -> {
             int id = Integer.parseInt(cartProductsList.get(holder.getAdapterPosition()).getProductId());
-            LocalDataBase db = new LocalDataBase(context);
+//            LocalDataBase db = new LocalDataBase(context);
             int count = db.minusProductCounter(id);
             Toast.makeText(context, "Minus", Toast.LENGTH_SHORT).show();
             if (count > 0) {
                 holder.cartProductCounter.setText(count + "");
+                totalprice.setText(db.sumPrices()+"");
             }else{
                 db.deleteProduct(id);
                 Intent intent = new Intent(context, CartActivity.class);

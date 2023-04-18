@@ -53,7 +53,7 @@ public class ProductsService {
                         String productName = jsonObject.getString("productName");
                         String productDes = jsonObject.getString("productDes");
                         float productPrice = Float.parseFloat(jsonObject.getString("productPrice"));
-                        String productImgUrl = jsonObject.getString("productUrl1");
+                        String productImgUrl = jsonObject.getString("productImgUrl");
                         String productCategory = jsonObject.getString("productCategory");
                         getProductsArray.add(new ProductClass(productId, productName, productDes, productPrice, productImgUrl, productCategory));
                     }
@@ -84,7 +84,7 @@ public class ProductsService {
                         String productName = jsonObject.getString("productName");
                         String productDes = jsonObject.getString("productDes");
                         float productPrice = Float.parseFloat(jsonObject.getString("productPrice"));
-                        String productImgUrl = jsonObject.getString("productUrl1");
+                        String productImgUrl = jsonObject.getString("productImgUrl");
                         String productCategory = jsonObject.getString("productCategory");
                         if (id == Integer.parseInt(productId)) {
                             getProductsArray.add(new ProductClass(productId, productName, productDes, productPrice, productImgUrl, productCategory));

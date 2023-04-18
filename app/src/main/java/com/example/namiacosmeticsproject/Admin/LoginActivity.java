@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.se.omapi.Session;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,7 +24,9 @@ import com.example.namiacosmeticsproject.Test.Example01;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.net.PasswordAuthentication;
 import java.util.Objects;
+import java.util.Properties;
 
 public class LoginActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -51,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
 
         txtForget.setOnClickListener(v -> {
             Toast.makeText(this, "I forget my password 😫", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, ForgetPassword.class);
+            startActivity(intent);
+            finish();
         });
         btn_login.setOnClickListener(v -> {
             String email = Objects.requireNonNull(loginEmail.getEditText().getText()).toString().trim();
@@ -63,8 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void getUser(User user) {
 //                    Toast.makeText(LoginActivity.this, user.getUserEmail(), Toast.LENGTH_SHORT).show();
                     sessionManager.createLoginSession(user);
-                    Intent intent = new Intent(LoginActivity.this, Example01.class);
+                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                     startActivity(intent);
+                    finish();
 
                 }
 
@@ -89,4 +97,39 @@ public class LoginActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    private void smtp(String email){
+//        final String username = "your-email@example.com";
+//        final char[] password =new char['h'];
+//
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", "smtp.gmail.com");
+//        props.put("mail.smtp.port", "587");
+//
+//        Session session = Session.getInstance(props,
+//                new javax.mail.Authenticator() {
+//                    protected PasswordAuthentication getPasswordAuthentication() {
+//                        return new PasswordAuthentication(username, password);
+//                    }
+//                });
+//
+//        try {
+//
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress("your-email@example.com"));
+//            message.setRecipients(Message.RecipientType.TO,
+//                    InternetAddress.parse("recipient-email@example.com"));
+//            message.setSubject("Verification code for resetting password");
+//            message.setText("Your verification code is: 123456");
+//
+//            Transport.send(message);
+//
+//            System.out.println("Email sent successfully");
+//
+//        } catch (MessagingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
