@@ -34,11 +34,12 @@ import java.util.ArrayList;
 public class AddressChecker extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextInputLayout fullNameview , emailview , postalCodeview , phoneview , cityview , addressview;
+    TextInputLayout fullNameview, emailview, postalCodeview, phoneview, cityview, addressview;
     CountryCodePicker countryview;
     Button confirmBtn;
-    String number="+212607701959", fullName , email , postalCode , phone , city , address, country;
+    String number = "+212607701959", fullName, email, postalCode, phone, city, address, country;
     LocalDataBase db = new LocalDataBase(this);
+    Bundle data;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,9 +47,10 @@ public class AddressChecker extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        data = getIntent().getExtras();
         initViews();
-        confirmBtn.setOnClickListener(V->{
-            if (validateAddress() & validateCity() & validateEmail() & validatePhone() & validateFullName() & validatePostalCode()){
+        confirmBtn.setOnClickListener(V -> {
+            if (validateAddress() & validateCity() & validateEmail() & validatePhone() & validateFullName() & validatePostalCode()) {
 
                 fullName = fullNameview.getEditText().getText().toString().trim();
                 email = emailview.getEditText().getText().toString().trim();
@@ -56,12 +58,15 @@ public class AddressChecker extends AppCompatActivity {
                 phone = phoneview.getEditText().getText().toString().trim();
                 address = addressview.getEditText().getText().toString().trim();
                 city = cityview.getEditText().getText().toString().trim();
-                country = String.format("%s (%s)",countryview.getSelectedCountryName(),countryview.getSelectedCountryNameCode());
-                if (country.equals( "Morocco (MA)")){
-                    whatsapp();
+                country = String.format("%s (%s)", countryview.getSelectedCountryName(), countryview.getSelectedCountryNameCode());
+                if (country.equals("Morocco (MA)")) {
+                    if (data == null) {
+                        whatsapp();
+                    } else {
+                        whatsapp02();
+                    }
 
-                }
-                else {
+                } else {
                     getPaymentMethode(15);
                 }
             }
@@ -71,10 +76,9 @@ public class AddressChecker extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
 
-        Toast.makeText(this,String.format("%s %s",countryview.getSelectedCountryName(),countryview.getSelectedCountryNameCode()), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, String.format("%s %s", countryview.getSelectedCountryName(), countryview.getSelectedCountryNameCode()), Toast.LENGTH_LONG).show();
 
     }
-
 
 
     private void initViews() {
@@ -118,10 +122,10 @@ public class AddressChecker extends AppCompatActivity {
         if (value.isEmpty()) {
             emailview.setError("Field can not be empty");
             return false;
-        } else if (!value.matches(checkEmail)){
+        } else if (!value.matches(checkEmail)) {
             emailview.setError("Invalid Email !");
             return false;
-        }else {
+        } else {
             emailview.setError(null);
             emailview.setErrorEnabled(false);
             return true;
@@ -181,8 +185,7 @@ public class AddressChecker extends AppCompatActivity {
     }
 
 
-
-    public void getPaymentMethode(float price){
+    public void getPaymentMethode(float price) {
         // Define a constant for the PayPal request code
         final int PAYPAL_REQUEST_CODE = 123;
 
@@ -201,7 +204,7 @@ public class AddressChecker extends AppCompatActivity {
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 
 // Launch the PayPal payment activity
-        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
 
 
 //        // Create a new instance of ActivityResultLauncher
@@ -228,17 +231,28 @@ public class AddressChecker extends AppCompatActivity {
     }
 
 
-
-    public void whatsapp(){
+    public void whatsapp() {
         ArrayList<ProductClass> productesdetails = db.getAllProducts();
         String message = "PRODUCTS INFO :\n";
-        for (ProductClass product:
+        for (ProductClass product :
                 productesdetails) {
-            message += "   Product Id : "+product.getProductId()+"\n   Product Titel : "+product.getProductName()+"\n   Product Count : "+product.getProductCount()+"\n";
+            message += "   Product Id : " + product.getProductId() + "\n   Product Titel : " + product.getProductName() + "\n   Product Count : " + product.getProductCount() + "\n";
         }
         message += "\nADDRESS INFO :\n";
-        message += "   FullName : "+fullName+"\n   Email : "+email+"\n   Phone : "+phone+"\n   City :"+city+"\n   Address :"+address+"\n   PostalCode :"+postalCode;
-        String url = "https://api.whatsapp.com/send?phone="+number+"&text="+message;
+        message += "   FullName : " + fullName + "\n   Email : " + email + "\n   Phone : " + phone + "\n   City :" + city + "\n   Address :" + address + "\n   PostalCode :" + postalCode;
+        String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + message;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
+
+    public void whatsapp02() {
+        String message = "";
+        message += "\nADDRESS INFO :\n";
+        message += "   Product Id : " + data.getInt("id") + "\n   Product Titel : " + data.getString("title") + "\n   Product Count : " + 1 + "\n";
+        message += "   FullName : " + fullName + "\n   Email : " + email + "\n   Phone : " + phone + "\n   City :" + city + "\n   Address :" + address + "\n   PostalCode :" + postalCode;
+        String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + message;
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

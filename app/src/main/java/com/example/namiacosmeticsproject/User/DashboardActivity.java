@@ -28,14 +28,17 @@ import com.example.namiacosmeticsproject.Admin.LoginActivity;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
 import com.example.namiacosmeticsproject.Data.ProductsService;
+import com.example.namiacosmeticsproject.Data.SessionManager;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.AllProductsFragment;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.BestSellersFragment;
 import com.example.namiacosmeticsproject.Fragments.MenuFragments.WishlistFragment;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.R;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,8 +50,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     ArrayList<ProductClass> topSellsProductsList;
     ArrayList<ProductClass> newProductsList;
 
-    ImageView menuIcon, headerMenuImg;
-    TextView headerMenuTitle, navTitle, textcart;
+    ImageView menuIcon, headerMenuImg, userProfileMenu;
+    TextView headerMenuTitle, navTitle, textcart, userTitleMenu;
 
     FragmentTransaction fragmentTransaction;
 
@@ -72,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
 
         initViews();
-        textcart.setText(db.allproductscounter()+"");
+        textcart.setText(db.allproductscounter() + "");
         imageSlider();
 
         topSellsRecycler();
@@ -81,8 +84,24 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         packsRecycler();
 
         drawerMenu();
+        userProfileMenu = findViewById(R.id.img_menu);
+        userTitleMenu = findViewById(R.id.txt_menu);
+        SessionManager sessionManager = new SessionManager(this);
+//        if (sessionManager.isLoggedIn()) {
+//            HashMap<String, String> userInfo = sessionManager.getUserDetails();
+//            String userName = userInfo.get("userName");
+//            String userImgUrl = userInfo.get("userImgUrl");
+//            userTitleMenu.setText(userName);
+//            Picasso.get().load(userImgUrl).into(userProfileMenu);
+//        }
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textcart.setText(db.allproductscounter() + "");
     }
 
     private void imageSlider() {
@@ -131,6 +150,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navTitle = findViewById(R.id.nav_title);
         textcart = findViewById(R.id.txt_cart);
 
+
     }
 
 //    navigation menu functions
@@ -155,11 +175,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         });
 
         cartIcon.setOnClickListener(v -> {
-            int count=Integer.parseInt(textcart.getText().toString());
-            if(count>0){
+            int count = Integer.parseInt(textcart.getText().toString());
+            if (count > 0) {
                 Intent intent = new Intent(DashboardActivity.this, CartActivity.class);
                 startActivity(intent);
-            }else {
+            } else {
                 Toast.makeText(this, "Your Cart Is Empty You Should To Select Product!", Toast.LENGTH_LONG).show();
             }
 
@@ -211,8 +231,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
         fragmentManager = getSupportFragmentManager();
-        Fragment curentf1= fragmentManager.findFragmentById(R.id.fragment_container);
-        if(curentf1!=null){
+        Fragment curentf1 = fragmentManager.findFragmentById(R.id.fragment_container);
+        if (curentf1 != null) {
             fragmentManager.beginTransaction().remove(curentf1).commit();
 
             // Remove the fragment from the back stack
@@ -244,13 +264,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         switch (item.getItemId()) {
             case R.id.nav_home:
                 fragmentManager = getSupportFragmentManager();
-                Fragment curentf1= fragmentManager.findFragmentById(R.id.fragment_container);
-                if(curentf1!=null){
+                Fragment curentf1 = fragmentManager.findFragmentById(R.id.fragment_container);
+                if (curentf1 != null) {
                     fragmentManager.beginTransaction().remove(curentf1).commit();
                     fragmentManager.popBackStack();
                     drawerLayout.closeDrawer(GravityCompat.START);
-                }
-                else
+                } else
                     drawerLayout.closeDrawer(GravityCompat.START);
 
 //                startActivity(new Intent(DashboardActivity.this, DashboardActivity.class));

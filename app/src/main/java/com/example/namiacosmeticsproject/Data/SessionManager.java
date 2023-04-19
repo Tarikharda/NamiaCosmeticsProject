@@ -14,10 +14,10 @@ public class SessionManager {
 
     private static final String SHARED_PREF_NAME = "session";
     private static final String KEY_ID = "id";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_IMG_URL = "imgurl";
+    private static final String KEY_USERNAME = "userName";
+    private static final String KEY_EMAIL = "userEmail";
+    private static final String KEY_PASSWORD = "userPassword";
+    private static final String KEY_IMG_URL = "userImgUrl";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     public SessionManager(Context context) {
@@ -25,7 +25,6 @@ public class SessionManager {
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-
 
     public void createLoginSession(User user) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);

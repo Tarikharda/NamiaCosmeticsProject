@@ -18,10 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.namiacosmeticsproject.Classes.ProductClass;
+import com.example.namiacosmeticsproject.Data.ProductsService;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.R;
+import com.example.namiacosmeticsproject.User.DashboardActivity;
 
 import java.util.ArrayList;
 
@@ -37,6 +40,7 @@ public class AllProductsFragment extends Fragment {
     recyclerCardAdapter allProductsFragmentAdapter;
     ArrayList<ProductClass> allProductsFragmentList;
 
+    ProductsService productsService = new ProductsService(AllProductsFragment.this);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,11 +75,24 @@ public class AllProductsFragment extends Fragment {
 
     private void allProductsFragment() {
         recyclerAllProducts.setHasFixedSize(true);
-        recyclerAllProducts.setLayoutManager(new GridLayoutManager(getContext() , 2));
+        recyclerAllProducts.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         allProductsFragmentList = new ArrayList<>();
-        allProductsFragmentAdapter = new recyclerCardAdapter(getContext() , allProductsFragmentList);
-        recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
+
+        productsService.getProducts(new ProductsService.ProductsInfo() {
+
+            @Override
+            public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
+                allProductsFragmentList = productsArrayList;
+                allProductsFragmentAdapter = new recyclerCardAdapter(getContext(), allProductsFragmentList);
+                recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(getContext(), "Error Loading Products !!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

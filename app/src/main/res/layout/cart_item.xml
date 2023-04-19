@@ -21,7 +21,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="-2dp"
             android:layout_marginBottom="-2dp"
-            android:background="@drawable/category_card"
             android:scaleType="centerCrop"
             android:src="@drawable/argan_oil_s" />
 

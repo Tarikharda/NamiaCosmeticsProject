@@ -54,6 +54,7 @@ public class recyclerCardAdapter extends RecyclerView.Adapter<recyclerCardAdapte
             Intent intent = new Intent(context , ProductDetails.class);
             intent.putExtra("id" , topSellsProductsList.get(holder.getAdapterPosition()).getProductId());
             intent.putExtra("position" , holder.getAdapterPosition());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
     }

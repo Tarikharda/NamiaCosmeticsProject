@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.namiacosmeticsproject.Data.SessionManager;
 import com.example.namiacosmeticsproject.R;
+import com.example.namiacosmeticsproject.User.DashboardActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -21,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView profile_title;
     EditText profile_full_name, profile_email;
     ImageView iv_logOut;
+    CircleImageView userImage;
 
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
@@ -30,23 +37,36 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         toolbar = findViewById(R.id.toolbar_profile);
+        userImage = findViewById(R.id.profile_img);
         SessionManager sessionManager = new SessionManager(this);
+
         HashMap<String, String> userInfo = sessionManager.getUserDetails();
-        Object test1 = userInfo.entrySet().toArray()[0];
-        Object test2 = userInfo.entrySet().toArray()[2];
-        Object test3 = userInfo.entrySet().toArray()[3];
+        Object title = userInfo.get("userName");
+        Object userName = userInfo.get("userName");
+        Object userEmail = userInfo.get("userEmail");
+        String userImgUrl = userInfo.get("userImgUrl");
 
         profile_title = findViewById(R.id.profile_title);
         profile_full_name = findViewById(R.id.profile_full_name);
         profile_email = findViewById(R.id.profile_email);
         iv_logOut = findViewById(R.id.iv_logOut);
 
-        profile_title.setText(test1 + "");
-        profile_full_name.setText(test2 + "");
-        profile_full_name.setText(test3 + "");
+        profile_title.setText(title + "");
+        profile_full_name.setText(userName + "");
+        profile_email.setText(userEmail + "");
+        Picasso.get().load(userImgUrl).into(userImage);
+
         iv_logOut.setOnClickListener(v -> {
             sessionManager.logoutSession();
+            Intent intent = new Intent(ProfileActivity.this, DashboardActivity.class);
+            startActivity(intent);
+            finish();
         });
+
+        userImage.setOnClickListener(v -> {
+            Toast.makeText(this, "Profile Image", Toast.LENGTH_SHORT).show();
+        });
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);

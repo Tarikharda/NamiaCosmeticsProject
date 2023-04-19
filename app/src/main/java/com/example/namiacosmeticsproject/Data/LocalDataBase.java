@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.namiacosmeticsproject.Classes.ProductClass;
+import com.example.namiacosmeticsproject.Classes.Profile;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,17 @@ public class LocalDataBase extends SQLiteOpenHelper {
                 PRODUCT_IMG_URL + " TEXT," +
                 PRODUCT_COUNT + " INTEGER)");
 
+        db.execSQL("CREATE TABLE profileInfo (" +
+                "userId INTEGER PRIMARY KEY NOT NULL," +
+                "userName TEXT," +
+                "userEmail TEXT," +
+                "userPassword TEXT," +
+                "userImgUrl TEXT," +
+                "Country TEXT," +
+                "CPostal TEXT," +
+                "phone TEXT," +
+                "city TEXT," +
+                "Address TEXT)");
     }
 
     @Override
@@ -59,6 +71,21 @@ public class LocalDataBase extends SQLiteOpenHelper {
         values.put(PRODUCT_IMG_URL, productClass.getProductImgUrl());
         values.put(PRODUCT_COUNT, productClass.getProductCount());
         db.insert(PRODUCT_TABLE_NAME, null, values);
+    }
+
+    public void insertInfoProfile(Profile profile) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("userId",profile.getUserId());
+        values.put("userName",profile.getUserName());
+        values.put("userEmail",profile.getUserEmail());
+        values.put("userPassword",profile.getUserPassword());
+        values.put("userImgUrl",profile.getUserImgUrl());
+        values.put("CPostal",profile.getCPostal());
+        values.put("phone",profile.getPhone());
+        values.put("city",profile.getCity());
+        values.put("address",profile.getAddress());
+        db.insert("profileInfo", null, values);
     }
 
     public long countProduct() {

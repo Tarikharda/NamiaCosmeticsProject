@@ -3,6 +3,8 @@ package com.example.namiacosmeticsproject.Data;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -11,6 +13,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
+import com.example.namiacosmeticsproject.Classes.Profile;
 import com.example.namiacosmeticsproject.Classes.User;
 
 import org.json.JSONArray;
@@ -23,10 +26,16 @@ public class ProductsService {
 
     private static final String URL_PRODUCTS = "https://volleyhost.000webhostapp.com/getProducts.php";
     private Context myContext;
+    private Fragment myfragment;
 
     public ProductsService(Context myContext) {
         this.myContext = myContext;
     }
+
+    public ProductsService(Fragment fragment) {
+        this.myfragment = fragment;
+    }
+
 
     public interface ProductsInfo {
         void getProductsArray(ArrayList<ProductClass> productsArrayList);

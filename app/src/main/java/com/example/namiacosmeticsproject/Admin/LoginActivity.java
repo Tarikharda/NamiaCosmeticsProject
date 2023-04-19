@@ -73,9 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-
                 }
-
                 @Override
                 public void onError(String errorMessage) {
                     Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();

@@ -103,6 +103,8 @@ public class WishlistFragment extends Fragment {
         // Handle back button event here
         // For example, pop the current fragment from the back stack
         // Get the FragmentManager
+
+
         FragmentManager fragmentManager = getParentFragmentManager();
 
         // Remove the current fragment

@@ -1,6 +1,7 @@
 package com.example.namiacosmeticsproject.User;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,10 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.namiacosmeticsproject.Admin.AddressChecker;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
 import com.example.namiacosmeticsproject.Data.ProductsService;
@@ -28,9 +31,11 @@ public class ProductDetails extends AppCompatActivity {
     boolean isFavorite = false;
     int id;
     Button btn_addToCart;
+    Button btn_buy;
     ProductsService productsService = new ProductsService(ProductDetails.this);
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,8 @@ public class ProductDetails extends AppCompatActivity {
 
         Bundle data = getIntent().getExtras();
         id = Integer.parseInt(data.getString("id"));
+
+        btn_buy = findViewById(R.id.btn_buy);
 
         productsService.getProductsById(id, new ProductsService.ProductsInfo() {
             @Override
@@ -69,6 +76,15 @@ public class ProductDetails extends AppCompatActivity {
 
         favoriteManager();
 
+        btn_buy.setOnClickListener(v -> {
+            Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ProductDetails.this, AddressChecker.class);
+            intent.putExtra("id", id);
+            intent.putExtra("title", detailProductTitle.getText().toString());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(intent);
+        });
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -81,6 +97,7 @@ public class ProductDetails extends AppCompatActivity {
             imageSlider(recyclerCardModel);
         }
     }
+
 
     private void favoriteManager() {
         favoriteBtn = findViewById(R.id.favorite_btn);

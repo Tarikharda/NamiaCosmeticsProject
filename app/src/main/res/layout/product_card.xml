@@ -19,8 +19,7 @@
             android:id="@+id/product_img"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/category_card"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             android:src="@drawable/argan_oil_s" />
 
         <TextView
