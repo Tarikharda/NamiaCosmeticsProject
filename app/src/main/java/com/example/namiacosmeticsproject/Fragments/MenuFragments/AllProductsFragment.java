@@ -1,5 +1,6 @@
 package com.example.namiacosmeticsproject.Fragments.MenuFragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.example.namiacosmeticsproject.R;
 import com.example.namiacosmeticsproject.User.DashboardActivity;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class AllProductsFragment extends Fragment {
 
@@ -84,7 +86,7 @@ public class AllProductsFragment extends Fragment {
             @Override
             public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
                 allProductsFragmentList = productsArrayList;
-                allProductsFragmentAdapter = new recyclerCardAdapter(getContext(), allProductsFragmentList);
+                allProductsFragmentAdapter = new recyclerCardAdapter(getActivity().getApplicationContext(), allProductsFragmentList);
                 recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
             }
 

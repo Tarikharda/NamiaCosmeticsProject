@@ -93,7 +93,7 @@ public class ProductDetails extends AppCompatActivity {
             detailProductTitle.setText(recyclerCardModel.getProductName());
             detailProductPrice.setText(recyclerCardModel.getProductPrice() + "");
             detailProductCategory.setText(recyclerCardModel.getProductCategory());
-            detailProductDescription.setText(" ");
+            detailProductDescription.setText(recyclerCardModel.getProductDes());
             imageSlider(recyclerCardModel);
         }
     }

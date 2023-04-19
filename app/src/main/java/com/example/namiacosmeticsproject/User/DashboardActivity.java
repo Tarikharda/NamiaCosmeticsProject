@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -24,6 +25,7 @@ import android.widget.Toolbar;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.namiacosmeticsproject.Admin.AllProducts;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
@@ -51,7 +53,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     ArrayList<ProductClass> newProductsList;
 
     ImageView menuIcon, headerMenuImg, userProfileMenu;
-    TextView headerMenuTitle, navTitle, textcart, userTitleMenu;
+    TextView headerMenuTitle, navTitle, textcart, userTitleMenu, newProducts, allProducts;
 
     FragmentTransaction fragmentTransaction;
 
@@ -61,7 +63,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     NavigationView navigationView;
     LinearLayout body, cartIcon;
     FragmentManager fragmentManager;
-
+    RelativeLayout relativeProgress;
     ProductsService productsService = new ProductsService(DashboardActivity.this);
     LocalDataBase db = new LocalDataBase(this);
 
@@ -86,6 +88,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerMenu();
         userProfileMenu = findViewById(R.id.img_menu);
         userTitleMenu = findViewById(R.id.txt_menu);
+
         SessionManager sessionManager = new SessionManager(this);
 //        if (sessionManager.isLoggedIn()) {
 //            HashMap<String, String> userInfo = sessionManager.getUserDetails();
@@ -94,7 +97,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 //            userTitleMenu.setText(userName);
 //            Picasso.get().load(userImgUrl).into(userProfileMenu);
 //        }
+        newProducts.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
+            startActivity(intent);
+        });
 
+        allProducts.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
+            startActivity(intent);
+        });
 
     }
 
@@ -150,6 +161,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navTitle = findViewById(R.id.nav_title);
         textcart = findViewById(R.id.txt_cart);
 
+        newProducts = findViewById(R.id.newProducts);
+        allProducts = findViewById(R.id.ALlProduct);
+        relativeProgress = findViewById(R.id.relativeProgress);
+
 
     }
 
@@ -191,10 +206,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         headerMenuTitle.setOnClickListener(v -> {
             startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+            drawerLayout.closeDrawer(GravityCompat.START);
         });
 
         headerMenuImg.setOnClickListener(v -> {
             startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+            drawerLayout.closeDrawer(GravityCompat.START);
         });
 
     }
@@ -277,17 +294,18 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_all_products:
-                fragmentCreator(new AllProductsFragment());
+                Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
+                startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_best_sellers:
-                fragmentCreator(new BestSellersFragment());
+                Intent intent1 = new Intent(DashboardActivity.this, AllProducts.class);
+                startActivity(intent1);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.nav_wishlist:
-                fragmentCreator(new WishlistFragment());
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
 
@@ -328,9 +346,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
                 topSellsProductsList = productsArrayList;
-
+                if (!topSellsProductsList.isEmpty()) {
+                    relativeProgress.setVisibility(View.GONE);
+                }
                 // for the top sells products recycler view
-                cardAdapter = new recyclerCardAdapter(getApplicationContext(), topSellsProductsList);
+                cardAdapter = new recyclerCardAdapter(DashboardActivity.this, topSellsProductsList);
                 topSellsRecycler.setAdapter(cardAdapter);
             }
 
