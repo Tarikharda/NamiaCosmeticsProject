@@ -119,7 +119,7 @@ public class AllProductsFragment extends Fragment {
         // Get the FragmentManager
         FragmentManager fragmentManager = getParentFragmentManager();
 
-        // Remove the current fragment
+        // Reove the current fragment
         fragmentManager.beginTransaction().remove(this).commit();
 
         // Remove the fragment from the back stack

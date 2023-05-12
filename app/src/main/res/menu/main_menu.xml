@@ -14,7 +14,7 @@
 
         <item
             android:id="@+id/nav_best_sellers"
-            android:title="Best Sellers"
+            android:title="New Products"
             android:icon="@drawable/ic_best_sellers"/>
 
         <item

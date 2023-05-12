@@ -3,13 +3,10 @@ package com.example.namiacosmeticsproject.Admin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -23,7 +20,7 @@ import com.example.namiacosmeticsproject.R;
 
 import java.util.ArrayList;
 
-public class AllProducts extends AppCompatActivity {
+public class newProducts extends AppCompatActivity {
     TextView navTitle;
     Toolbar toolbar;
 
@@ -33,12 +30,12 @@ public class AllProducts extends AppCompatActivity {
     recyclerCardAdapter allProductsFragmentAdapter;
     ArrayList<ProductClass> allProductsList;
 
-    ProductsService productsService = new ProductsService(AllProducts.this);
+    ProductsService productsService = new ProductsService(newProducts.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_products);
+        setContentView(R.layout.activity_new_products);
 
         initViews();
         // Set the Toolbar as the ActionBar for the parent Activity
@@ -47,7 +44,7 @@ public class AllProducts extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
 
-        allProducts();
+        newProducts();
     }
 
     private void initViews() {
@@ -56,12 +53,12 @@ public class AllProducts extends AppCompatActivity {
         progressBar = findViewById(R.id.all_products_progressbar);
 
         navTitle =findViewById(R.id.nav_title);
-        navTitle.setText("All Products");
+        navTitle.setText("New Products");
 
         recyclerAllProducts = findViewById(R.id.all_products_recycler);
     }
 
-    private void allProducts() {
+    private void newProducts() {
         recyclerAllProducts.setHasFixedSize(true);
         recyclerAllProducts.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -73,16 +70,16 @@ public class AllProducts extends AppCompatActivity {
             public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
                 allProductsList = productsArrayList;
                 if(!allProductsList.isEmpty()){
-                   progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
-                allProductsFragmentAdapter = new recyclerCardAdapter(AllProducts.this, allProductsList);
+                allProductsFragmentAdapter = new recyclerCardAdapter(newProducts.this, allProductsList);
 
                 recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
             }
 
             @Override
             public void onError(String errorMessage) {
-                Toast.makeText(AllProducts.this, "Error Loading Products !!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(newProducts.this, "Error Loading Products !!", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -29,7 +29,8 @@
             android:id="@+id/toolbar_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main_color">
+            android:background="@color/main_color"
+            android:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -89,9 +90,25 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            android:elevation="8dp"
             android:background="#34AAAAAA"
-            android:elevation="8dp">
+            >
 
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_width="326dp"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:focusable="true"
+                android:hint="Find your products"
+                android:textColor="#000000"
+                android:background="#00000000"
+                android:textColorHint="#86000000"
+                tools:ignore="RtlSymmetry" />
+            <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,26 +116,31 @@
                 android:layout_marginStart="20dp"
                 android:text="Find your products"
                 android:textColor="@android:color/darker_gray" />
+                -->
 
             <ImageView
+                android:id="@+id/img_search"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_search_gray" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@id/ed_search"
+                android:src="@drawable/ic_search_gray"
+                android:clickable="true"
+                android:focusable="true" />
 
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relativeProgress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
+
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                />
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
         <ScrollView

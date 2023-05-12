@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Fragments.MenuFragments.BestSellersFragment">
+    tools:context=".Admin.newProducts">
 
     <ProgressBar
         android:id="@+id/best_sellers_progressbar"
@@ -29,7 +29,7 @@
                 android:id="@+id/nav_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Test"
+                android:text="Best Sellers"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"

@@ -37,7 +37,7 @@ public class AddressChecker extends AppCompatActivity {
     TextInputLayout fullNameview, emailview, postalCodeview, phoneview, cityview, addressview;
     CountryCodePicker countryview;
     Button confirmBtn;
-    String number = "+212607701959", fullName, email, postalCode, phone, city, address, country;
+    String number = "+212643129153", fullName, email, postalCode, phone, city, address, country;
     LocalDataBase db = new LocalDataBase(this);
     Bundle data;
 

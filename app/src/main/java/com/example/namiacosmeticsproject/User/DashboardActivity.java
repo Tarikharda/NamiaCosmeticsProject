@@ -1,5 +1,19 @@
 package com.example.namiacosmeticsproject.User;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -10,50 +24,35 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.AllProducts;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
+import com.example.namiacosmeticsproject.Admin.newProducts;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
 import com.example.namiacosmeticsproject.Data.ProductsService;
 import com.example.namiacosmeticsproject.Data.SessionManager;
-import com.example.namiacosmeticsproject.Fragments.MenuFragments.AllProductsFragment;
-import com.example.namiacosmeticsproject.Fragments.MenuFragments.BestSellersFragment;
-import com.example.namiacosmeticsproject.Fragments.MenuFragments.WishlistFragment;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.R;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final float END_SCALE = 0.7f;
 
     Toolbar toolbar;
-    RecyclerView topSellsRecycler, NewProductsRecycler;
+    RecyclerView topSellersRecycler, NewProductsRecycler;
     recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
     ArrayList<ProductClass> topSellsProductsList;
     ArrayList<ProductClass> newProductsList;
 
-    ImageView menuIcon, headerMenuImg, userProfileMenu;
+    ImageView menuIcon, headerMenuImg, userProfileMenu,img_search;
     TextView headerMenuTitle, navTitle, textcart, userTitleMenu, newProducts, allProducts;
+    EditText ed_search;
 
     FragmentTransaction fragmentTransaction;
 
@@ -67,7 +66,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     ProductsService productsService = new ProductsService(DashboardActivity.this);
     LocalDataBase db = new LocalDataBase(this);
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +79,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         textcart.setText(db.allproductscounter() + "");
         imageSlider();
 
-        topSellsRecycler();
+        topSellersRecycler();
         newProductsRecycler();
         categoriesRecycler();
         packsRecycler();
-
         drawerMenu();
         userProfileMenu = findViewById(R.id.img_menu);
         userTitleMenu = findViewById(R.id.txt_menu);
@@ -98,7 +96,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 //            Picasso.get().load(userImgUrl).into(userProfileMenu);
 //        }
         newProducts.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
+            Intent intent = new Intent(DashboardActivity.this, newProducts.class);
             startActivity(intent);
         });
 
@@ -106,9 +104,21 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
             startActivity(intent);
         });
+        ed_search.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String searchData =ed_search.getText().toString();
+                //showResults(searchData); //passing string to search in your database to your method
+                if(searchData.equals("Tarik")){
+                    Toast.makeText(DashboardActivity.this, "Yes", Toast.LENGTH_SHORT).show();
+                   return true;
 
+                }
+            }
+            return false;
+        });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
@@ -141,7 +151,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         // recyclers
 
-        topSellsRecycler = findViewById(R.id.recycler_top_sells);
+        topSellersRecycler = findViewById(R.id.recycler_top_sells);
         NewProductsRecycler = findViewById(R.id.recycler_new_products);
 
         // menu
@@ -165,6 +175,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         allProducts = findViewById(R.id.ALlProduct);
         relativeProgress = findViewById(R.id.relativeProgress);
 
+        //for search bar
+        img_search = findViewById(R.id.img_search);
+        ed_search =findViewById(R.id.ed_search);
+
 
     }
 
@@ -172,11 +186,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     private void drawerMenu() {
         // to interact with the navigation view
-
         navigationView.bringToFront();
 
         // to select items in the navigation view
-
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
@@ -263,16 +275,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         else super.onBackPressed();
     }
 
-
-    public void fragmentCreator(Fragment fragment) {
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-
-        if (drawerLayout.isDrawerVisible(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-    }
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -300,7 +302,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_best_sellers:
-                Intent intent1 = new Intent(DashboardActivity.this, AllProducts.class);
+                Intent intent1 = new Intent(DashboardActivity.this, com.example.namiacosmeticsproject.Admin.newProducts.class);
                 startActivity(intent1);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
@@ -333,12 +335,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     //    recycler views functions
 
-    private void topSellsRecycler() {
+    private void topSellersRecycler() {
         // to load just the card that are viewed by the user not all
-        topSellsRecycler.setHasFixedSize(true);
+        topSellersRecycler.setHasFixedSize(true);
 
         // to set the orientation of it to linear layout horizontal
-        topSellsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        topSellersRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         topSellsProductsList = new ArrayList<>();
         productsService.getProducts(new ProductsService.ProductsInfo() {
@@ -351,7 +353,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 }
                 // for the top sells products recycler view
                 cardAdapter = new recyclerCardAdapter(DashboardActivity.this, topSellsProductsList);
-                topSellsRecycler.setAdapter(cardAdapter);
+                topSellersRecycler.setAdapter(cardAdapter);
             }
 
             @Override
@@ -375,8 +377,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 newProductsList = productsArrayList;
 
                 // for the top sells products recycler view
-                cardAdapter = new recyclerCardAdapter(getApplicationContext(), newProductsList);
-                topSellsRecycler.setAdapter(cardAdapter);
+                cardAdapter = new recyclerCardAdapter(DashboardActivity.this, newProductsList);
+                topSellersRecycler.setAdapter(cardAdapter);
             }
 
             @Override

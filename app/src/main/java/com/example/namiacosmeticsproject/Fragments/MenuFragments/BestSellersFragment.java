@@ -41,7 +41,7 @@ public class BestSellersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_best_sellers, container, false);
+        view = inflater.inflate(R.layout.activity_new_products, container, false);
 
         setHasOptionsMenu(true);
 

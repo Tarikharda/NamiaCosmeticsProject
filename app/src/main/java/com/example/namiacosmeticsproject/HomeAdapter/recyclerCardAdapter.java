@@ -22,11 +22,11 @@ import java.util.ArrayList;
 public class recyclerCardAdapter extends RecyclerView.Adapter<recyclerCardAdapter.rc_card_ViewHolder> {
 
     Context context;
-    ArrayList<ProductClass> topSellsProductsList;
+    ArrayList<ProductClass> ProductsList;
 
-    public recyclerCardAdapter(Context context , ArrayList<ProductClass> topSellsProductsList) {
+    public recyclerCardAdapter(Context context , ArrayList<ProductClass> ProductsList) {
         this.context = context;
-        this.topSellsProductsList = topSellsProductsList;
+        this.ProductsList = ProductsList;
     }
 
     @NonNull
@@ -40,19 +40,19 @@ public class recyclerCardAdapter extends RecyclerView.Adapter<recyclerCardAdapte
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull rc_card_ViewHolder holder, int position) {
-        ProductClass cardInfos = topSellsProductsList.get(position);
+        ProductClass cardInfos = ProductsList.get(position);
 
-        Picasso.get().load(cardInfos.getProductImgUrl()).into(holder.productImage);
         holder.productId.setText(cardInfos.getProductId());
-        holder.productTxt.setText(cardInfos.getProductName());
+        holder.productName.setText(cardInfos.getProductName());
         holder.productPrice.setText(cardInfos.getProductPrice()+"");
         holder.productCategory.setText(cardInfos.getProductCategory());
+        Picasso.get().load(cardInfos.getProductImgUrl()).into(holder.productImage);
 
         // the onclick of an item of the recycler view
 
         holder.productCard.setOnClickListener(v -> {
             Intent intent = new Intent(context , ProductDetails.class);
-            intent.putExtra("id" , topSellsProductsList.get(holder.getAdapterPosition()).getProductId());
+            intent.putExtra("id" , ProductsList.get(holder.getAdapterPosition()).getProductId());
             intent.putExtra("position" , holder.getAdapterPosition());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
@@ -61,23 +61,23 @@ public class recyclerCardAdapter extends RecyclerView.Adapter<recyclerCardAdapte
 
     @Override
     public int getItemCount() {
-        return topSellsProductsList.size();
+        return ProductsList.size();
     }
 
     public static class rc_card_ViewHolder extends RecyclerView.ViewHolder {
 
         CardView productCard;
         ImageView productImage;
-        TextView productTxt , productPrice , productCategory,productId;
+        TextView productName, productPrice , productCategory,productId;
 
         public rc_card_ViewHolder(@NonNull View itemView) {
             super(itemView);
             productId=itemView.findViewById(R.id.recyclerProId);
-            productCard = itemView.findViewById(R.id.product_card);
-            productImage = itemView.findViewById(R.id.product_img);
-            productTxt = itemView.findViewById(R.id.product_txt);
+            productName = itemView.findViewById(R.id.product_txt);
             productPrice = itemView.findViewById(R.id.product_price);
             productCategory = itemView.findViewById(R.id.product_category);
+            productImage = itemView.findViewById(R.id.product_img);
+            productCard = itemView.findViewById(R.id.product_card);
         }
     }
 }
