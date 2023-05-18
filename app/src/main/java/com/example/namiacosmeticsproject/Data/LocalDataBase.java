@@ -15,6 +15,8 @@ import com.example.namiacosmeticsproject.Classes.Profile;
 
 import java.util.ArrayList;
 
+import com.example.namiacosmeticsproject.Classes.favoriteProducts;
+
 public class LocalDataBase extends SQLiteOpenHelper {
     private static final String DB_NAME = "db_Products";
     private static final String PRODUCT_ID = "productId";
@@ -52,6 +54,11 @@ public class LocalDataBase extends SQLiteOpenHelper {
                 "phone TEXT," +
                 "city TEXT," +
                 "Address TEXT)");
+
+        db.execSQL("CREATE TABLE favoriteProduct (" +
+                "userId INTEGER  NOT NULL," +
+                "productId INTEGER  NOT NULL," +
+                "isFav TEXT)");
     }
 
     @Override
@@ -76,15 +83,15 @@ public class LocalDataBase extends SQLiteOpenHelper {
     public void insertInfoProfile(Profile profile) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("userId",profile.getUserId());
-        values.put("userName",profile.getUserName());
-        values.put("userEmail",profile.getUserEmail());
-        values.put("userPassword",profile.getUserPassword());
-        values.put("userImgUrl",profile.getUserImgUrl());
-        values.put("CPostal",profile.getCPostal());
-        values.put("phone",profile.getPhone());
-        values.put("city",profile.getCity());
-        values.put("address",profile.getAddress());
+        values.put("userId", profile.getUserId());
+        values.put("userName", profile.getUserName());
+        values.put("userEmail", profile.getUserEmail());
+        values.put("userPassword", profile.getUserPassword());
+        values.put("userImgUrl", profile.getUserImgUrl());
+        values.put("CPostal", profile.getCPostal());
+        values.put("phone", profile.getPhone());
+        values.put("city", profile.getCity());
+        values.put("address", profile.getAddress());
         db.insert("profileInfo", null, values);
     }
 
@@ -107,11 +114,11 @@ public class LocalDataBase extends SQLiteOpenHelper {
                 @SuppressLint("Range") String productImgUrl = cursor.getString(cursor.getColumnIndex(PRODUCT_IMG_URL));
                 @SuppressLint("Range") String productCount = cursor.getString(cursor.getColumnIndex(PRODUCT_COUNT));
                 ProductClass product = new ProductClass(productId, productName, productDes, productPrice, productImgUrl, productCategory, Integer.parseInt(productCount));
-                 ProductList.add(product);
+                ProductList.add(product);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return  ProductList;
+        return ProductList;
     }
 
     public long getAll() {
@@ -160,13 +167,13 @@ public class LocalDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         float sumOfPrices = 0;
 //        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT SUM( " + PRODUCT_PRICE + " ) as sum  FROM " + PRODUCT_TABLE_NAME, null);
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT " + PRODUCT_PRICE+ " , " + PRODUCT_COUNT + " FROM " + PRODUCT_TABLE_NAME, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT " + PRODUCT_PRICE + " , " + PRODUCT_COUNT + " FROM " + PRODUCT_TABLE_NAME, null);
         if (cursor.moveToFirst()) {
             do {
                 float productPrice = cursor.getFloat(cursor.getColumnIndex(PRODUCT_PRICE));
                 int productCount = Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_COUNT)));
-                sumOfPrices += productPrice*productCount;
-            }while (cursor.moveToNext());
+                sumOfPrices += productPrice * productCount;
+            } while (cursor.moveToNext());
 //            sumOfPrices = cursor.getFloat(cursor.getColumnIndex("sum"));
         }
         return sumOfPrices;
@@ -174,8 +181,45 @@ public class LocalDataBase extends SQLiteOpenHelper {
 
     public int allproductscounter() {
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT DISTINCT *  FROM " + PRODUCT_TABLE_NAME,null);
-        int count = cursor.getCount();
-        return count;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT DISTINCT *  FROM " + PRODUCT_TABLE_NAME, null);
+        return cursor.getCount();
+    }
+
+    public void rememberFavorite(boolean flag, int userId, int productId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("userId", userId);
+        values.put("productId", productId);
+        values.put("favorite", flag);
+        db.insert("favoriteProduct", null, values);
+    }
+
+    public ArrayList<favoriteProducts> getIsFavArray() {
+        ArrayList<favoriteProducts> arraylist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM favoriteProduct", null);
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+                @SuppressLint("Range") int productId = cursor.getInt(cursor.getColumnIndex("productId"));
+                @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex("productName"));
+                @SuppressLint("Range") String isFav = cursor.getString(cursor.getColumnIndex("isFav"));
+                favoriteProducts favoriteProducts = new favoriteProducts(userId, productId, productName, isFav);
+                arraylist.add(favoriteProducts);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return arraylist;
+    }
+
+    public boolean removeFavorite(int idProduct) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        for (favoriteProducts fv : getIsFavArray()) {
+            if (fv.getProductId() == idProduct) {
+                db.execSQL("DELETE FROM favoriteProduct WHERE id=" + idProduct);
+                return true;
+            }
+        }
+        return false;
     }
 }

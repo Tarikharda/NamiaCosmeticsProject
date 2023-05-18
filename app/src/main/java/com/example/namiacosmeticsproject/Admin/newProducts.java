@@ -19,6 +19,7 @@ import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
 import com.example.namiacosmeticsproject.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class newProducts extends AppCompatActivity {
     TextView navTitle;
@@ -40,7 +41,7 @@ public class newProducts extends AppCompatActivity {
         initViews();
         // Set the Toolbar as the ActionBar for the parent Activity
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
 

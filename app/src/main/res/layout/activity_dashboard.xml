@@ -204,124 +204,15 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_category"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/category_card"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/face" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Face"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/category_card"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/hair" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Hair"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/category_card"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/body" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Body"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/category_card"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/atmosphere" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Atmosphere"
-                            android:textAlignment="center"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
 
@@ -428,6 +319,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/title_recyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="All Products"
@@ -435,24 +327,16 @@
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/ALlProduct"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rc_all_products"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="View all"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="normal" />
+                            android:layout_below="@id/title_recyle"
+                            android:layout_centerHorizontal="true"
+                            />
+
                     </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </androidx.recyclerview.widget.RecyclerView>
 
 
                 </LinearLayout>

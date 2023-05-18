@@ -87,10 +87,7 @@ public class CartActivity extends AppCompatActivity {
         cartItems = localDataBase.getAllProducts();
         cartProductAdapter = new CartProductAdapter(this, cartItems, totalPrice);
         recyclerCart.setAdapter(cartProductAdapter);
-
-//
     }
-
     private void initViews() {
         recyclerCart = findViewById(R.id.recycler_cart);
     }
@@ -102,6 +99,7 @@ public class CartActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

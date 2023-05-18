@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,11 +32,14 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.namiacosmeticsproject.Admin.AllProducts;
 import com.example.namiacosmeticsproject.Admin.LoginActivity;
 import com.example.namiacosmeticsproject.Admin.newProducts;
+import com.example.namiacosmeticsproject.Classes.Categories;
 import com.example.namiacosmeticsproject.Classes.ProductClass;
 import com.example.namiacosmeticsproject.Data.LocalDataBase;
 import com.example.namiacosmeticsproject.Data.ProductsService;
 import com.example.namiacosmeticsproject.Data.SessionManager;
 import com.example.namiacosmeticsproject.HomeAdapter.recyclerCardAdapter;
+import com.example.namiacosmeticsproject.Admin.AllProducts;
+import com.example.namiacosmeticsproject.HomeAdapter.recyclerCategoriesAdapter;
 import com.example.namiacosmeticsproject.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -45,12 +50,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     static final float END_SCALE = 0.7f;
 
     Toolbar toolbar;
-    RecyclerView topSellersRecycler, NewProductsRecycler;
-    recyclerCardAdapter cardAdapter, cardAdapterNewProducts;
-    ArrayList<ProductClass> topSellsProductsList;
-    ArrayList<ProductClass> newProductsList;
-
-    ImageView menuIcon, headerMenuImg, userProfileMenu,img_search;
+    RecyclerView topSellersRecycler, NewProductsRecycler, recyclerAllProducts,CategoryRecycler;
+    recyclerCardAdapter cardAdapter, cardAdapterNewProducts, allProductsFragmentAdapter;
+    recyclerCategoriesAdapter recyclerCategoryAdapter;
+    ArrayList<ProductClass> topSellsProductsList, newProductsList, allProductsList;
+    ArrayList<Categories> categoryList;
+    ImageView menuIcon, headerMenuImg, userProfileMenu, img_search;
     TextView headerMenuTitle, navTitle, textcart, userTitleMenu, newProducts, allProducts;
     EditText ed_search;
 
@@ -58,6 +63,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     // drawer menu
 
+    ProgressBar progressBar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout body, cartIcon;
@@ -65,6 +71,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     RelativeLayout relativeProgress;
     ProductsService productsService = new ProductsService(DashboardActivity.this);
     LocalDataBase db = new LocalDataBase(this);
+
+    int userId;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -96,26 +104,23 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 //            Picasso.get().load(userImgUrl).into(userProfileMenu);
 //        }
         newProducts.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, newProducts.class);
-            startActivity(intent);
-        });
-
-        allProducts.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, AllProducts.class);
             startActivity(intent);
         });
-        ed_search.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String searchData =ed_search.getText().toString();
-                //showResults(searchData); //passing string to search in your database to your method
-                if(searchData.equals("Tarik")){
-                    Toast.makeText(DashboardActivity.this, "Yes", Toast.LENGTH_SHORT).show();
-                   return true;
 
-                }
-            }
-            return false;
-        });
+//        ed_search.setOnEditorActionListener((v, actionId, event) -> {
+//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                String searchData =ed_search.getText().toString();
+//                //showResults(searchData); //passing string to search in your database to your method
+//                if(searchData.equals("Tarik")){
+//                    Toast.makeText(DashboardActivity.this, "Yes", Toast.LENGTH_SHORT).show();
+//                   return true;
+//
+//                }
+//            }
+//            return false;
+//        });
+        allProducts();
     }
 
     @SuppressLint("SetTextI18n")
@@ -153,7 +158,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         topSellersRecycler = findViewById(R.id.recycler_top_sells);
         NewProductsRecycler = findViewById(R.id.recycler_new_products);
-
+        recyclerAllProducts = findViewById(R.id.rc_all_products);
+        CategoryRecycler = findViewById(R.id.recycler_category);
         // menu
 
         body = findViewById(R.id.whole_body);
@@ -172,12 +178,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         textcart = findViewById(R.id.txt_cart);
 
         newProducts = findViewById(R.id.newProducts);
-        allProducts = findViewById(R.id.ALlProduct);
         relativeProgress = findViewById(R.id.relativeProgress);
 
         //for search bar
         img_search = findViewById(R.id.img_search);
-        ed_search =findViewById(R.id.ed_search);
+        ed_search = findViewById(R.id.ed_search);
 
 
     }
@@ -209,7 +214,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             } else {
                 Toast.makeText(this, "Your Cart Is Empty You Should To Select Product!", Toast.LENGTH_LONG).show();
             }
-
         });
 
         animateMenu();
@@ -375,10 +379,35 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
                 newProductsList = productsArrayList;
-
+                if (!newProductsList.isEmpty()) {
+                    relativeProgress.setVisibility(View.GONE);
+                }
                 // for the top sells products recycler view
                 cardAdapter = new recyclerCardAdapter(DashboardActivity.this, newProductsList);
-                topSellersRecycler.setAdapter(cardAdapter);
+                NewProductsRecycler.setAdapter(cardAdapter);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(DashboardActivity.this, "Error Loading Products !!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void allProducts() {
+        recyclerAllProducts.setHasFixedSize(true);
+        recyclerAllProducts.setLayoutManager(new GridLayoutManager(this, 2));
+
+        allProductsList = new ArrayList<>();
+
+        productsService.getProducts(new ProductsService.ProductsInfo() {
+
+            @Override
+            public void getProductsArray(ArrayList<ProductClass> productsArrayList) {
+                allProductsList = productsArrayList;
+                allProductsFragmentAdapter = new recyclerCardAdapter(DashboardActivity.this, allProductsList);
+
+                recyclerAllProducts.setAdapter(allProductsFragmentAdapter);
             }
 
             @Override
@@ -389,8 +418,18 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void categoriesRecycler() {
-    }
+        CategoryRecycler.setHasFixedSize(true);
+        CategoryRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext() , RecyclerView.HORIZONTAL , false));
 
+        categoryList = new ArrayList<>();
+        categoryList.add(new Categories(String.valueOf(R.drawable.face) , "Face"));
+        categoryList.add(new Categories(String.valueOf(R.drawable.hair) , "Hair"));
+        categoryList.add(new Categories(String.valueOf(R.drawable.body) , "Body"));
+        categoryList.add(new Categories(String.valueOf(R.drawable.atmosphere) , "Atmosphere"));
+
+        recyclerCategoryAdapter= new recyclerCategoriesAdapter(getApplicationContext() , categoryList);
+        CategoryRecycler.setAdapter(recyclerCategoryAdapter);
+    }
     private void packsRecycler() {
     }
 

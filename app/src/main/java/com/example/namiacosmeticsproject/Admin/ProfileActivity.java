@@ -12,8 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.namiacosmeticsproject.Data.SessionManager;
-import com.example.namiacosmeticsproject.R;
 import com.example.namiacosmeticsproject.User.DashboardActivity;
+import com.example.namiacosmeticsproject.R;
+import com.example.namiacosmeticsproject.User.ProductDetails;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText profile_full_name, profile_email;
     ImageView iv_logOut;
     CircleImageView userImage;
-
+    Object userId;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         SessionManager sessionManager = new SessionManager(this);
 
         HashMap<String, String> userInfo = sessionManager.getUserDetails();
+        userId = userInfo.get("id");
         Object title = userInfo.get("userName");
         Object userName = userInfo.get("userName");
         Object userEmail = userInfo.get("userEmail");
@@ -71,5 +73,13 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_white);
         getSupportActionBar().setTitle("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,DashboardActivity.class);
+        intent.putExtra("userId",Integer.parseInt(userId.toString()));
+        this.startActivity(intent);
+        super.onBackPressed();
     }
 }
